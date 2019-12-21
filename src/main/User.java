@@ -8,14 +8,16 @@ public class User {
 	private static final int INPUT_SIZE = 3;
 
 	private ArrayList<Integer> inputNum;
+	
+	Scanner sc;
 
 	public User() {
+		sc = new Scanner(System.in);
 		inputNum = new ArrayList<>();
 	}
 
 	/* 유저로부터 숫자 입력받기 */
 	public void inputNumber() {
-		Scanner sc = new Scanner(System.in);
 		String input;
 
 		while (true) {
@@ -71,5 +73,15 @@ public class User {
 	/* getter */
 	public ArrayList<Integer> getNum() {
 		return inputNum;
+	}
+	
+	/* 재시작할건지 선택 */
+	public int restart() {
+		while(true) {
+			int choice = sc.nextInt();
+			if(choice > 0 && choice < 3) {
+				return choice;
+			}
+		}
 	}
 }
