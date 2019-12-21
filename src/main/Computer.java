@@ -7,13 +7,10 @@ public class Computer {
 	private static final int BALL_SIZE = 3;
 	
 	private ArrayList<Integer> randomNum; //랜덤숫자를 담을 리스트
-	
-	public Computer() {
-		randomNum = new ArrayList<>();
-	}
-	
+
 	/* 난수 생성 */
 	public ArrayList<Integer> createRandomNum() {
+		randomNum = new ArrayList<>();
 		
 		while(randomNum.size() < BALL_SIZE) {
 			int num = (int)(Math.random() * 9 + 1);
