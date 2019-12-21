@@ -1,15 +1,16 @@
 package main;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class User {
 
-	private static final int BALL_SIZE = 3;
+	private static final int INPUT_SIZE = 3;
 
-	private int[] num;
+	private ArrayList<Integer> inputNum;
 
 	public User() {
-		num = new int[BALL_SIZE];
+		inputNum = new ArrayList<>();
 	}
 
 	/* 유저로부터 숫자 입력받기 */
@@ -22,8 +23,7 @@ public class User {
 			input = sc.next();
 
 			if (isInteger(input) && checkInputLen(input) && isDifferent(input)) {
-				setNum(input);
-				
+				changeInput(input);
 				sc.close();
 				break;
 			}
@@ -46,7 +46,7 @@ public class User {
 
 	/* 유저가 입력한 값이 3글자인지 체크 */
 	public boolean checkInputLen(String input) {
-		return input.length() == BALL_SIZE;
+		return input.length() == INPUT_SIZE;
 	}
 
 	/* 유저가 입력한 값이 다 다른지 체크 */
@@ -59,16 +59,17 @@ public class User {
 		return true;
 	}
 
-	/* num배열에 유저가 입력한 값 넣기 */
-	public void setNum(String input) {
-		for (int i = 0; i < BALL_SIZE; i++) {
+	/* 유저가 입력한 값(String)을 int로 변환해서 리스트에 삽입 */
+	public void changeInput(String input) {
+		for (int i = 0; i < INPUT_SIZE; i++) {
 			char c = input.charAt(i);
-			num[i] = (int) c - 48;
+			int value = (int)c - 48;
+			inputNum.add(value);
 		}
 	}
 
 	/* getter */
-	public int[] getNum() {
-		return num;
+	public ArrayList<Integer> getNum() {
+		return inputNum;
 	}
 }
