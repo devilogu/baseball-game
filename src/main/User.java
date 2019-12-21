@@ -11,22 +11,19 @@ public class User {
 	
 	Scanner sc;
 
-	public User() {
-		sc = new Scanner(System.in);
-		inputNum = new ArrayList<>();
-	}
-
 	/* 유저로부터 숫자 입력받기 */
 	public void inputNumber() {
 		String input;
-
+		
+		inputNum = new ArrayList<>();
+		sc = new Scanner(System.in);
+		
 		while (true) {
 			System.out.print("숫자를 입력해 주세요 : ");
 			input = sc.next();
 
 			if (isInteger(input) && checkInputLen(input) && isDifferent(input)) {
 				changeInput(input);
-				sc.close();
 				break;
 			}
 		}
@@ -76,11 +73,16 @@ public class User {
 	}
 	
 	/* 재시작할건지 선택 */
-	public int restart() {
+	public boolean restart() {
 		while(true) {
+			System.out.print("재시작하려면 1, 종료하려면 2 입력 : ");
 			int choice = sc.nextInt();
-			if(choice > 0 && choice < 3) {
-				return choice;
+			if(choice == 1) {
+				return true;
+			}
+			else {
+				sc.close();
+				return false;
 			}
 		}
 	}
