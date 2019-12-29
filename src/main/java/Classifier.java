@@ -10,9 +10,18 @@ public class Classifier {
 	}
 	
 	void setNumber() {
-		this.number = ((int)(Math.random()*9)+1)*100
-				+((int)(Math.random()*9)+1)*10
-				+((int)(Math.random()*9)+1);
+		int first,middle=0,last=0;
+		first = ((int)(Math.random()*9)+1);
+		middle = ((int)(Math.random()*9)+1);
+		last = ((int)(Math.random()*9)+1);
+		while(middle==first) {
+			middle = ((int)(Math.random()*9)+1);
+		}
+		while(last==first || last==middle) {
+			last = ((int)(Math.random()*9)+1);
+		}
+		this.number = (first*100)+(middle*10)+last;		
+		System.out.println(":"+this.number);
 	}
 	
 	void setUserNumber(int userNumber) {
@@ -20,70 +29,64 @@ public class Classifier {
 	}
 	
 	boolean judge() { 
-		int i=0,j=0,n,un; //i는 스트라이크, j는 볼
-		String stringNumber = number+"";
+		int strike=0,ball=0,computerNumber,userNumber; //i는 스트라이크, j는 볼
+		String stringNumber = this.number+"";
 		
 		//첫번째 자리
-		n = number/100;
-		un = userNumber/100;
-		if(stringNumber.contains(un+""))
-			j++;
-		if(n==un) {
-			j--;
-			i++;
+		computerNumber = this.number/100;
+		userNumber = this.userNumber/100;
+		if(stringNumber.contains(userNumber+"")) {
+			ball++;	
+		}
+		if(computerNumber==userNumber) {
+			ball--;
+			strike++;
 		}
 		//두번째자리
-		n = (number%100)/10;
-		un = (userNumber%100)/10;
-		if(stringNumber.contains(un+""))
-			j++;
-		if(n==un) {
-			j--;
-			i++;
+		computerNumber = (this.number%100)/10;
+		userNumber = (this.userNumber%100)/10;
+		if(stringNumber.contains(userNumber+"")) {
+			ball++;
+		}
+		if(computerNumber==userNumber) {
+			ball--;
+			strike++;
 		}
 		//셋째자리
-		n = number%10;
-		un = userNumber%10;
-		if(stringNumber.contains(un+""))
-			j++;
-		if(n==un) {
-			j--;
-			i++;
+		computerNumber = number%10;
+		userNumber = this.userNumber%10;
+		if(stringNumber.contains(userNumber+"")) {
+			ball++;
+		}
+		if(computerNumber==userNumber) {
+			ball--;
+			strike++;
 		}
 		
-		if(i>0)
-			System.out.print(i+"스트라이크 ");
-		if(j>0)
-			System.out.print(j+"볼");
-		if(number==userNumber) {
+		if(strike>0) {
+			System.out.print(strike+"스트라이크 ");
+		}
+		if(ball>0) {
+			System.out.print(ball+"볼");
+		}
+		if(number==this.userNumber) {
 			System.out.println("\n3개의 숫자를 모두 맞히셨습니다! 게임종료");
 			return true;
 		}
 		return false;
 	}
-	void newGame() {
-		System.out.println("게임을 새로 시작하려면 1, "
-				+ "종료하려면 2를 입력하세요");
-	}
+	
 	void game() {
-		while(true) {
+		do {
 			System.out.print("\n숫자를 입력해 주세요 :");
 			setUserNumber(sc.nextInt());	/* 사용자 입력받기  */
-			if(judge()) {
-				break;
-			}
-		}
+		}while(!judge());
 	}
 	
 	void board() {
-		while(true) {
+		do	{
 			game();
-			System.out.println("게임을 새로 시작하려면 1,"
-					+ " 종료하려면 2를 입력하세요 .");
-			if(sc.nextInt()==2) {
-				break;
-			}
-		}
-	}
-	
+			System.out.println("게임을 새로 시작하려면 1, 종료하려면 2를 입력하세요 .");		
+		}while(sc.nextInt()==1);
+	}	
 }
